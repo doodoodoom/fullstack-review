@@ -1,8 +1,17 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   // we're connected!
+// });
+
 let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
+  id: Number,
+  username: String,
+  html_url: String,
+  forks_count: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
