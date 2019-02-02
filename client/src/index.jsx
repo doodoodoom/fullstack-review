@@ -19,13 +19,13 @@ class App extends React.Component {
     $.ajax({
       url: 'http://localhost:1128/repos',
       method: 'POST',
-      data: {username: term},
+      data: JSON.stringify({username: term}),
       contentType: 'application/json',
       success: function() {
         console.log('WE DID IT!');
       },
-      error: function() {
-        console.log('WE ARE FUBBERNUCKED!');
+      error: function(err) {
+        console.log('WE ARE FUBBERNUCKED!', err);
       }
     });
   }
