@@ -2,7 +2,8 @@ const express = require('express');
 let app = express();
 const bodyParser = require('body-parser');
 const getReposByUsername = require('../helpers/github.js');
-const save = require('../database/index.js')
+const save = require('../database/index.js').save;
+const retrieve = require('../database/index.js').retrieve;
 
 // console.log(getReposByUsername);
 
@@ -21,16 +22,22 @@ app.post('/repos', function (req, res) {
       return;
     };
     console.log('STATUS CODE', response && response.statusCode);
-    console.log('RESULTS FROM getRepos-', JSON.parse(body));
     save(JSON.parse(body));
   })
-  res.status(201).send(username);
+  res.status(201).send('SUCCESSFUL POST');
 });
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  res.send('SUP');
+  retrieve(function(err, data) {
+    if (err) {
+      console.log('', err);
+      return;
+    }
+    console.log('THIS IS THE DATA FROM THE DB!!', data);
+  });
+  res.status(200).send('SUCCESSFUL GET');
 });
 
 let port = 1128;

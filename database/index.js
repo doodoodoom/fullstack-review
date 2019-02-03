@@ -28,7 +28,17 @@ let save = (repos) => {
       }
     });
   }
-
 }
 
-module.exports = save;
+let retrieve = (callback) => {
+  Repo.find({username: 'octocat'}, function(err, data) {
+    if (err) {
+      console.log('COULD NOT RETRIEVE DATA!!', err);
+      return;
+    }
+    callback(null, data);
+  });
+};
+
+module.exports.save = save;
+module.exports.retrieve = retrieve;
